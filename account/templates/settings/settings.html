@@ -1,0 +1,567 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block body %}
+<div class="settings-container px-12">
+    <h1>Paramètres</h1>
+</div>
+<div id="button-compte" onclick="modalHandler(true, modal_compte)"
+    class="compte-container mx-12 my-4 border border-gray-400 rounded">
+    <div class="compte-container-h2">
+        <h2 class="pl-8 my-4">Compte</h2>
+    </div>
+    <div class="compte-container-infos px-8 my-4">
+        <!-- ? Nom -->
+        <div
+            class="compte-container-infos-nom py-2 px-4 mb-2 w-full border border-gray-400 rounded  hover:bg-gray-100 transition">
+            <!-- flex  justify-between items-center -->
+            <div class=" flex justify-between items-center flex-wrap">
+                <p class="font-semibold">Nom</p>
+                <p>{{user.12}}</p>
+            </div>
+            <div class="flex justify-end items-center">
+                <button id="button-compte" onclick="modalHandler(true, modal_compte)" type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 duration-150 ease-in-out border-2 rounded text-gray-600 py-1 px-4 hover:bg-gray-100 transition">Editer</button>
+            </div>
+        </div>
+
+        <!-- ? Modal Nom -->
+
+
+        <!-- ? Email -->
+        <div
+            class="compte-container-infos-nom py-2 px-4 mb-2 w-full border border-gray-400 rounded  hover:bg-gray-100 transition">
+            <!-- flex  justify-between items-center -->
+            <div class=" flex justify-between items-center flex-wrap">
+                <p class="font-semibold">Email</p>
+                <p>{{user.7}}</p>
+            </div>
+            <div class="flex justify-end items-center ">
+                <button id="button-compte" onclick="modalHandler(true, modal_compte)" type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 duration-150 ease-in-out border-2 rounded text-gray-600 py-1 px-4 hover:bg-gray-100 transition">Editer</button>
+            </div>
+        </div>
+
+        <!-- ? Password -->
+        <div
+            class="compte-container-infos-nom py-2 px-4 mb-2 w-full border border-gray-400 rounded  hover:bg-gray-100 transition">
+            <!-- flex  justify-between items-center -->
+            <div class=" flex justify-between items-center flex-wrap ">
+                <p class="font-semibold pr-2">Mot de passe</p>
+                <p>Password</p>
+            </div>
+            <div class="flex justify-end items-center ">
+                <button id="button-compte" onclick="modalHandler(true, modal_compte)" type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 duration-150 ease-in-out border-2 rounded text-gray-600 py-1 px-4 hover:bg-gray-100 transition">Editer</button>
+            </div>
+        </div>
+        <div id="delete-account" class="mt-6 delete-compte"><a href="#" class="underline ">Supprimer mon compte</a>
+        </div>
+    </div>
+</div>
+<div id="button-option" onclick="modalHandler(true, modal_option)"
+    class="option-container mx-12 my-4 border border-gray-400 rounded">
+    <div class="compte-container-h2">
+        <h2 class="pl-8 my-4">Option</h2>
+    </div>
+    <div class="compte-container-infos px-8 my-4">
+        <!-- ? Nom -->
+        <div
+            class="compte-container-infos-nom py-2 px-4 mb-2 w-full border border-gray-400 rounded  hover:bg-gray-100 transition">
+            <!-- flex  justify-between items-center -->
+            <div class=" flex justify-between items-center flex-wrap">
+                <p class="font-semibold">Photo</p>
+                <img class="w-10 h-auto rounded-full mr-2" src="{% static image_url %}" alt="Profil image">
+                <!-- <p>Picture</p> -->
+            </div>
+            <div class="flex justify-end items-center">
+                <button id="button-option" onclick="modalHandler(true, modal_option)" type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 duration-150 ease-in-out border-2 rounded text-gray-600 py-1 px-4 hover:bg-gray-100 transition">Editer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ? Facturation -->
+<!-- <div id="button-facturation" onclick="modalHandler(true, modal_facturation)"
+    class="facturation-container mx-12 my-4 border border-gray-400 rounded">
+    <div class="compte-container-h2">
+        <h2 class="pl-8 my-4">Facturation</h2>
+    </div>
+    <div class="compte-container-infos px-8 my-4">
+      
+        <div
+            class="compte-container-infos-nom py-2 px-4 mb-2 w-full border border-gray-400 rounded  hover:bg-gray-100 transition">
+            
+            <div class=" flex justify-between items-center flex-wrap">
+                <p class="font-semibold">Méthode de paiement</p>
+                <p>Visa 6340 <span class="text-gray-400 font-bold">.</span> <span class="text-gray-400">Expire 2 /
+                        2036</span></p>
+            </div>
+            <div class="flex justify-end items-center">
+                <button id="button-facturation" onclick="modalHandler(true, modal_facturation)" type="button"
+                    class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 duration-150 ease-in-out border-2 rounded text-gray-600 py-1 px-4 hover:bg-gray-100 transition">Modifier</button>
+            </div>
+        </div>
+    </div>
+</div> -->
+
+<!-- <form class="form-facturation" action="">
+    {% csrf_token %}
+    <dh-component>
+
+        <div class="mt-36 py-12  z-10 absolute top-0 right-0 bottom-0 left-0" id="modal-facturation">
+            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+                <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                    <div class="w-full flex justify-start text-gray-600 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wallet" width="52"
+                            height="52" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12" />
+                            <path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" />
+                        </svg>
+                    </div>
+                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Détails facturation
+                    </h1>
+                    <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nom du
+                        propriétaire
+                    </label>
+                    <input id="name" value="{{user.12}}"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+                    <label for="email2" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Numéro de
+                        la
+                        carte</label>
+                    <div class="relative mb-5 mt-2">
+                        <div class="absolute text-gray-600 flex items-center px-4 border-r h-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-credit-card"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <rect x="3" y="5" width="18" height="14" rx="3" />
+                                <line x1="3" y1="10" x2="21" y2="10" />
+                                <line x1="7" y1="15" x2="7.01" y2="15" />
+                                <line x1="11" y1="15" x2="13" y2="15" />
+                            </svg>
+                        </div>
+                        <input id="email2"
+                            class="text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
+                            placeholder="XXXX - XXXX - XXXX - XXXX" />
+                    </div>
+                    <label for="expiry" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Date
+                        d'expiration
+                    </label>
+                    <div class="relative mb-5 mt-2">
+                        <div class="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-event"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z" />
+                                <rect x="4" y="5" width="16" height="16" rx="2" />
+                                <line x1="16" y1="3" x2="16" y2="7" />
+                                <line x1="8" y1="3" x2="8" y2="7" />
+                                <line x1="4" y1="11" x2="20" y2="11" />
+                                <rect x="8" y="15" width="2" height="2" />
+                            </svg>
+                        </div>
+                        <input id="expiry"
+                            class="text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                            placeholder="MM/YY" />
+                    </div>
+                    <label for="cvc" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">CVC</label>
+                    <div class="relative mb-5 mt-2">
+                        <div class="absolute right-0 text-gray-600 flex items-center pr-3 h-full cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-info-circle"
+                                width="20" height="20" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                <path stroke="none" d="M0 0h24v24H0z"></path>
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                                <polyline points="11 12 12 12 12 16 13 16"></polyline>
+                            </svg>
+                        </div>
+                        <input id="cvc"
+                            class="mb-8 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border"
+                            placeholder="MM/YY" />
+                    </div>
+                    <div class="flex items-center justify-start w-full">
+                        <button type="submit"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition hover:bg-blue-500 bg-blue-400 rounded text-white px-8 py-2 text-sm">Confirmer</button>
+                        <button type="button"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition text-gray-600 hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                            onclick="modalHandler(false, modal_facturation)">Annuler</button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let modal_facturation = document.getElementById("modal-facturation");
+            modalHandler(false, modal_facturation);
+            function modalHandler(val, modal) {
+                if (val) {
+                    fadeIn(modal);
+                } else {
+                    fadeOut(modal);
+                }
+            }
+            function fadeOut(el) {
+                el.style.opacity = 1;
+                (function fade() {
+                    if ((el.style.opacity -= 0.1) < 0) {
+                        el.style.display = "none";
+                    } else {
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+            function fadeIn(el, display) {
+                el.style.opacity = 0;
+                el.style.display = display || "flex";
+                (function fade() {
+                    let val = parseFloat(el.style.opacity);
+                    if (!((val += 0.2) > 1)) {
+                        el.style.opacity = val;
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+        </script>
+
+
+    </dh-component>
+</form> -->
+
+<!-- ? Form Option -->
+<form id="form-option" class="form-option" action="">
+    {% csrf_token %}
+    <dh-component>
+
+        <div class="mt-36 py-12  z-10 absolute top-0 right-0 bottom-0 left-0" id="modal-option">
+            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+                <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                    <div class="w-full flex justify-start text-gray-600 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wallet" width="52"
+                            height="52" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12" />
+                            <path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" />
+                        </svg>
+                        <!-- <img class="w-10 h-auto rounded-full mr-2" src="{% static image_url %}" alt="Profil image"> -->
+                    </div>
+                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Modifier votre photo
+                    </h1>
+
+                    <div class="relative mb-5 mt-2">
+                        <div class=" absolute text-gray-600 px-4 border-r h-full">
+                            <img id="preview" class="w-10 h-10 rounded-full mr-4" src="{% static image_url %}"
+                                alt="Profil image">
+                        </div>
+                        <input required name="new-image" id="new-image" type="file" accept="image/*"
+                            class="pt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-16 text-sm border-gray-300 rounded border"
+                            onchange="previewImage(event)" style=" padding-left: 25%;" />
+                    </div>
+
+
+                    <div class="flex items-center justify-start w-full">
+                        <button type="submit"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition hover:bg-blue-500 bg-blue-400 rounded text-white px-8 py-2 text-sm">Sauvegarder</button>
+                        <button id="button-annuler-option" type="button"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 transition text-gray-600 hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                            onclick="modalHandler(false, modal_option)">Annuler</button>
+                    </div>
+                    <!-- <button
+                        class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                        onclick="modalHandler()" aria-label="close modal" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20"
+                            height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button> -->
+                </div>
+            </div>
+        </div>
+
+        <script>
+            let modal_option = document.getElementById("modal-option");
+
+            modalHandler(false, modal_option);
+            function modalHandler(val, modal) {
+                if (val) {
+                    fadeIn(modal);
+                } else {
+                    fadeOut(modal);
+                }
+            }
+            function fadeOut(el) {
+                el.style.opacity = 1;
+                (function fade() {
+                    if ((el.style.opacity -= 0.1) < 0) {
+                        el.style.display = "none";
+                    } else {
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+            function fadeIn(el, display) {
+                el.style.opacity = 0;
+                el.style.display = display || "flex";
+                (function fade() {
+                    let val = parseFloat(el.style.opacity);
+                    if (!((val += 0.2) > 1)) {
+                        el.style.opacity = val;
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+        </script>
+
+
+    </dh-component>
+</form>
+
+
+
+<!-- ? Form Compte -->
+<form id="form-compte" class="form-compte" action="{% url 'update_user_info' %}" method="POST">
+    {% csrf_token %}
+    <dh-component>
+
+        <div class="mt-36 py-12  z-10 absolute top-0 right-0 bottom-0 left-0" id="modal-compte">
+            <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+
+
+
+                <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+                    <div class="w-full flex justify-start text-gray-600 mb-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-wallet" width="52"
+                            height="52" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <path
+                                d="M17 8v-3a1 1 0 0 0 -1 -1h-10a2 2 0 0 0 0 4h12a1 1 0 0 1 1 1v3m0 4v3a1 1 0 0 1 -1 1h-12a2 2 0 0 1 -2 -2v-12" />
+                            <path d="M20 12v4h-4a2 2 0 0 1 0 -4h4" />
+                        </svg>
+                    </div>
+                    <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Détails compte
+                    </h1>
+                    <label for="name" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nom
+
+                    </label>
+                    <input name="name" id="name" value="{{user.12}}"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+
+                    <label for="email" class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Email
+                    </label>
+                    <input name="email" id="email" value="{{user.7}}"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+
+                    <label for="password-actuel"
+                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Mot de passe actuel
+
+                    </label>
+                    <input type="password" name="password-actuel" id="password-actuel" placeholder="*******"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+
+                    <label for="Nouveau mot de passe"
+                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Nouveau mot de passe
+
+                    </label>
+                    <input type="password" name="new-password" id="new-password" placeholder="Nouveau mot de passe"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+
+                    <label for="confirm-password"
+                        class="text-gray-800 text-sm font-bold leading-tight tracking-normal">Confirmation mot de passe
+                    </label>
+                    <input type="password" name="confirm-password" id="confirm-password"
+                        placeholder="Confirmer mot de passe"
+                        class="mb-5 mt-2 text-gray-600 focus:outline-none focus:border focus:border-blue-400 font-normal w-full h-10 flex items-center pl-3 text-sm border-gray-300 rounded border" />
+                    <div id="error-message" class="w-full text-red-400 text-center mb-4" style="display: none;"></div>
+
+                    <div class="flex items-center justify-start w-full">
+                        <button type="submit"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 hover:bg-blue-500 bg-blue-400 rounded text-white px-8 py-2 text-sm">Valider</button>
+                        <button type="button" id="button-annuler-compte"
+                            class="focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-400 ml-3 bg-gray-100 text-gray-600 hover:border-gray-400 hover:bg-gray-300 border rounded px-8 py-2 text-sm"
+                            onclick="modalHandler(false, modal_compte)">Annuler</button>
+                    </div>
+                    <!-- <button
+                        class="cursor-pointer absolute top-0 right-0 mt-4 mr-5 text-gray-400 hover:text-gray-600 transition rounded focus:ring-2 focus:outline-none focus:ring-gray-600"
+                        onclick="modalHandler()" aria-label="close modal" role="button">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-x" width="20"
+                            height="20" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" fill="none"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" />
+                            <line x1="18" y1="6" x2="6" y2="18" />
+                            <line x1="6" y1="6" x2="18" y2="18" />
+                        </svg>
+                    </button> -->
+                </div>
+            </div>
+        </div>
+        <!-- <div class="w-full flex justify-center py-12" id="button-facturation">
+            <button
+                class="focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 mx-auto transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm"
+                onclick="modalHandler(true)">Open Modal</button>
+        </div> -->
+        <script>
+            let modal_compte = document.getElementById("modal-compte");
+            //let modal_facture = document.getElementById("modal-facturation");
+
+            modalHandler(false, modal_compte);
+            function modalHandler(val, modal) {
+                if (val) {
+                    fadeIn(modal);
+                } else {
+                    fadeOut(modal);
+                }
+            }
+            function fadeOut(el) {
+                el.style.opacity = 1;
+                (function fade() {
+                    if ((el.style.opacity -= 0.1) < 0) {
+                        el.style.display = "none";
+                    } else {
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+            function fadeIn(el, display) {
+                el.style.opacity = 0;
+                el.style.display = display || "flex";
+                (function fade() {
+                    let val = parseFloat(el.style.opacity);
+                    if (!((val += 0.2) > 1)) {
+                        el.style.opacity = val;
+                        requestAnimationFrame(fade);
+                    }
+                })();
+            }
+        </script>
+
+
+    </dh-component>
+</form>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Script Image -->
+<script>
+    function previewImage(event) {
+        var reader = new FileReader();
+        reader.onload = function () {
+            var output = document.getElementById('preview');
+            output.src = reader.result;
+        }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+    document.getElementById('form-option').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/image/update/', true);  // Remplacez '/image/update/' par l'URL de votre vue Django
+        xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+        xhr.onload = function () {
+            if (this.status == 200) {
+                var resp = JSON.parse(this.responseText);
+                console.log(resp);
+                if (resp.redirect_url) {
+                    window.location.href = resp.redirect_url;
+                }
+            }
+        };
+
+        xhr.send(formData);
+    });
+
+    $("#button-annuler-option").click(function () {
+        $("#form-option")[0].reset();
+    });
+
+    //function previewImage(event) {
+    //   var reader = new FileReader();
+    //   reader.onload = function () {
+    //      var output = document.getElementById('preview');
+    //      output.src = reader.result;
+    //  }
+    //  reader.readAsDataURL(event.target.files[0]);
+    //}
+
+</script>
+
+<!-- Script compte -->
+<script>
+    $("#form-compte").submit(function (e) {
+        e.preventDefault();
+        $.ajax({
+            url: $(this).attr('action'),
+            type: 'POST',
+            data: $(this).serialize(),
+            success: function (response) {
+                if (response.error_message) {
+                    $('#error-message').text(response.error_message);
+                    $('#error-message').show();
+                    setTimeout(function () {
+                        $('#error-message').hide();
+                    }, 3000);
+                } else if (response.redirect_url) {
+                    window.location.href = response.redirect_url;
+                }
+            },
+            error: function (xhr, status, error) {
+                $('#error-message').text('Une erreur s\'est produite lors du traitement de votre demande.');
+                $('#error-message').show();
+                setTimeout(function () {
+                    $('#error-message').hide();
+                }, 3000);
+            }
+        });
+    });
+
+    $("#button-annuler-compte").click(function () {
+        $("#form-compte")[0].reset();
+    });
+
+</script>
+
+<!-- Script Delete -->
+<script>
+    document.getElementById('delete-account').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        var confirmation = confirm('Voulez-vous vraiment supprimer votre compte ?');
+        if (confirmation) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/delete_account/', true);
+            xhr.setRequestHeader('X-CSRFToken', document.querySelector('[name=csrfmiddlewaretoken]').value);
+
+            xhr.onload = function () {
+                if (this.status == 200) {
+                    var resp = JSON.parse(this.responseText);
+                    if (resp.redirect_url) {
+                        window.location.href = resp.redirect_url;
+                    }
+                }
+            };
+
+            xhr.send();
+        } else {
+
+            window.location.href = '/settings/edit';
+        }
+    });
+</script>
+
+
+
+
+{% endblock %}

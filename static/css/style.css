@@ -1,0 +1,420 @@
+/* Ajoutez une couleur par défaut pour les liens non actifs */
+/* li:not(.active) a {
+    color: #000 !important; 
+    
+} */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: red;
+}
+
+/* ? Rendre les items du menu actif */
+li.active a {
+    color: rgb(59 130 246) !important;
+    font-weight: bold;
+    /* box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color); */
+}
+
+li.active a:hover{
+    color: rgb(37 99 235) !important;
+}
+
+.section-price-logout{
+    border: 2px solid red;
+    /* min-height: 50px; */
+}
+
+.nav{
+    /* background: orange !important; */
+    position: fixed;
+    top: 0;
+    transition: 0.3s ease-in-out;
+    
+    width: 100%;
+    z-index: 100;
+}
+
+/* ? Responsive index */
+/* body{
+    background: skyblue;
+} */
+/* @media screen and (max-width: 410px) {
+    nav#navbar{
+        background: darkblue;
+    }
+    body{
+        background: skyblue;
+        
+    }
+
+    .apprendre-format{
+        background: orange;
+    }
+
+    .apprendre-format .div-rounded{
+        background: plum;
+        
+    }
+}  */
+
+@media screen and (max-width: 767px) {
+    /* nav#navbar{
+        background: rgb(0, 255, 153);
+    } */
+    /* body{
+        background: darkslategrey;
+        
+    } */
+
+    /* .apprendre-format{
+        background: orange;
+    } */
+
+    .apprendre-format .div-rounded{
+        /* background: yellow; */
+        /* display: block; */
+        /* padding: 20px; */
+        display: flex;
+        justify-content: center;
+        /* padding: 0; */
+        /* padding-left: 20px; */
+        /* width: 100%; */
+    }
+
+    /* .apprendre-format .div-rounded .rounded-item{
+        background: #3B82F6;
+        
+    } */
+
+    .apprendre-format .div-rounded .rounded-item h5{
+        font-size: 1rem;
+        /* padding-right: 1%; */
+    }
+} 
+
+/* *? Tutoriels */
+.limited-lines {
+    overflow: hidden;
+    line-height: 2;
+    max-height: 5.85em; /* Hauteur maximale équivalente à environ 3 lignes de texte */
+    text-overflow: ellipsis; 
+   display: -webkit-box;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    -webkit-line-clamp: 4;
+}
+
+.apprendre-format .div-tuto{
+    cursor: pointer;
+    /* transition: ease-in-out 1s; */
+}
+
+/* .apprendre-format .titre-tuto{
+    transition: ease-in-out 200ms;
+} */
+
+.apprendre-format .div-tuto:hover, .apprendre-format .div-tuto:hover .titre-tuto {
+    border-color: rgb(59 130 246);
+    color: rgb(59 130 246);
+    
+}
+
+/* ? Search */
+/* .search-container input {
+  border: 1px solid #ccc;
+}
+
+
+.search-container:focus-within input {
+  border: 1px solid #4CAF50; 
+}
+
+
+.search-container:focus-within input {
+  padding-left: 2rem; 
+}
+
+
+.search-container:focus-within input + svg {
+  stroke: #4CAF50; 
+} */
+
+.search-container{
+    background: #fff;
+    height: 30px;
+    border-radius: 30px;
+    padding: 10px 20px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.8s;
+    /* box-shadow:inset 2px 2px 2px 0px rgba(255,255,255,.5),
+    inset -7px -7px 10px 0px rgba(0,0,0,.1),
+   7px 7px 20px 0px rgba(0,0,0,.1),
+   4px 4px 5px 0px rgba(0,0,0,.1);
+   text-shadow:  0px 0px 6px rgba(255,255,255,.3),
+              -4px -4px 6px rgba(116, 125, 136, .2);
+  text-shadow: 2px 2px 3px rgba(255,255,255,0.5); */
+  box-shadow:  4px 4px 6px 0 rgba(255,255,255,.3),
+              -4px -4px 6px 0 rgba(116, 125, 136, .2), 
+    inset -4px -4px 6px 0 rgba(255,255,255,.2),
+    inset 4px 4px 6px 0 rgba(0, 0, 0, .2);
+}
+
+
+.search-container:hover {
+
+    border: solid #3B82F6;
+}
+
+.search-container:hover > .search-input{
+    width: 400px;
+}
+
+.search-container .search-input{
+    background: transparent;
+    border: none;
+    outline:none;
+    width: 0px;
+    font-weight: 500;
+    font-size: 16px;
+    transition: 0.8s;
+
+}
+
+.search-container .search-btn .fas{
+    color: #3B82F6;
+}
+
+@keyframes hoverShake {
+  0% {transform: skew(0deg,0deg);}
+  25% {transform: skew(5deg, 5deg);}
+  75% {transform: skew(-5deg, -5deg);}
+  100% {transform: skew(0deg,0deg);}
+}
+
+.search-container:hover{
+  animation: hoverShake 0.15s linear 3;
+}
+
+/* CSS pour les écrans de taille moyenne */
+@media only screen and (max-width: 768px) {
+    .search-container:hover > .search-input{
+        width: 300px;
+    }
+}
+
+/* CSS pour les petits écrans */
+@media only screen and (max-width: 480px) {
+    .nav #huguescodeur{
+        font-size: 1.5rem;
+    }
+
+    .apprendre-format .apprendre-format-title h2{
+        font-size: 1.8rem;
+    }
+
+    .apprendre-format .apprendre-format-title p{
+        font-size: 0.9rem;
+    }
+
+    .search-container{
+        padding: 5px 10px;
+        margin-top: 20px;
+    }
+
+    .search-container:hover > .search-input{
+        width: 98%;
+    }
+
+    .search-container .search-input{
+        font-size: 14px;
+    }
+}
+
+@media only screen and (max-width: 290px) {
+   
+
+    .search-container:hover > .search-input{
+        width: 80%;
+        
+    }
+
+    .div-tuto .div-tuto-titre, .div-tuto .formation-div-time-icon{
+        flex-direction: column;
+    }
+
+    .div-tuto .div-tuto-titre a{
+        margin-top: 10px;
+    }
+
+    .div-tuto .titre-tuto{
+        text-align: center;
+    }
+
+    .div-tuto .div-time-icon{
+        /* background: blue; */
+        justify-content: center;
+        padding: 5px 0;
+    }
+
+    /* .search-container .search-input{
+        font-size: 10px;
+    } */
+}
+
+@media only screen and (max-width: 290px) {
+    
+    .apprendre-format .apprendre-format-title p{
+        display: none;
+    }
+}
+
+/* ? Mes Formations */
+.mes_formations{
+    min-height: 100vh;
+    /* background-image: linear-gradient(to bottom, rgb(0, 123, 255), rgb(59, 130, 246)); */
+    /* background-image: var(--primary); */
+    /* background: skyblue; */
+
+    font-family: sans-serif;
+    color: black;
+    /* color: var(--text); */
+    display: flex;
+    align-items: center;
+    border: 2px solid rebeccapurple;
+}
+
+.container{
+    width: 100vw;
+    display: grid;
+    /* grid-template-columns: 1.2fr 1.8fr ; */
+    grid-template-columns:  65% 35% ;
+    gap: 1rem;
+    padding: .5rem 1rem;
+    text-transform: capitalize;
+}
+
+@media screen and (max-width: 990px) {
+    .container{
+        display: flex;
+        flex-direction: column;
+        /* grid-template-columns: 1fr; */
+    }
+
+    /* .video-playlist .title{
+        padding-left: 0;
+    } */
+}
+
+.main-video, .video-playlist{
+    width: 100%;
+    height: 30rem;
+    border: 2px solid red;
+}
+
+.main-video .title{
+    margin-top: 1rem;
+}
+
+.video-playlist .title{
+        padding-left: 1rem;
+    }
+
+.video-playlist > p{
+    padding: 1rem;
+    color: rgb(59 130 246);
+    /* color: var(--secondary); */
+    /* color: var(--secondary); */
+}
+
+.video-playlist .videos .video{
+    position: relative;
+    width: 100%;
+    height: 4rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 0 1rem;
+    margin-top: .1rem;
+    cursor: pointer;
+    border-radius: .5rem;
+}
+
+.video-playlist .videos .video:hover{
+    background-color: #0003;
+}
+
+.video-playlist .videos .video.active{
+    background-color: #0003;
+    /* color: var(--secondary); */
+    color: rgb(59 130 246);
+}
+
+.video-playlist .videos{
+    height: 85%;
+    overflow-y: auto;
+    /* border: 2px solid white; */
+}
+
+.video-playlist .videos::-webkit-scrollbar{
+    width: .4rem;
+    border-radius: .4rem;
+    background-color: #0005;
+}
+
+.video-playlist .videos::-webkit-scrollbar-thumb{
+    width: .4rem;
+    border-radius: .4rem;
+    background-color: #fff;
+}
+
+.main-video video{
+    width: 100%;
+    border-radius: .5rem;
+    height: 100%;
+    object-fit: cover; /* Ajuste la vidéo pour remplir complètement le conteneur tout en préservant son rapport d'aspect */
+    border-radius: .5rem;
+}
+
+.video img {
+    position: absolute;
+    width: 1.5rem;
+    height: 1.5rem;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 1.5rem;
+    height: 1.5rem;
+
+    filter: invert(100%);
+}
+
+/* .video-playlist .videos .video.active img{
+    filter: invert(100%) sepia(100%) saturate(2000%) hue-rotate(360deg);
+    
+} */
+
+.video p{
+    margin-left: 2.5rem;
+}
+
+.video h3{
+    width: 23rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    font: 100 1rem sans-serif;
+    padding: 0 .5rem;
+}

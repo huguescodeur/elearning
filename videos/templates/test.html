@@ -1,0 +1,141 @@
+{% extends 'partials/base.html' %} {% load static %} {% block body %}
+<div class="mes_formations mt-20">
+    <main class="containers">
+        <section class="main-video">
+            <video src="" controls autoplay muted></video>
+            <!-- <h3 class="title">Title of the playing video</h3> -->
+        </section>
+        <section class="video-playlist border shadow px-2">
+            <h3 class="title">Title of the video playlist</h3>
+            <p>10 lessons &nbsp; . &nbsp; 50m 48s</p>
+            <div class="videos">
+
+
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<script>
+    //alert("Vidéo playlist")
+    const main_video = document.querySelector(".main-video video");
+    const main_video_title = document.querySelector(".main-video .title");
+    const video_playlist = document.querySelector(".video-playlist .videos");
+
+    console.log(video_playlist);
+
+
+
+    let data = [
+        {
+            id: "a1",
+            title: "video1",
+            name: "video1.mp4",
+            duration: "2:45",
+        },
+        {
+            id: "a2",
+            title: "video2",
+            name: "video2.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a3",
+            title: "video3",
+            name: "video3.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a4",
+            title: "video4",
+            name: "video4.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+        {
+            id: "a5",
+            title: "video5",
+            name: "video5.mp4",
+            duration: "2:47",
+        },
+    ];
+
+    data.forEach((video, i) => {
+        let video_element = `
+                <div class="video" data-id="${video.id}">
+                    <img src="{% static 'medias/images/play-50.png' %}" alt="">
+                    <p>0${i + 1}.</p>
+                    <h3 class="title">${video.title}</h3>
+                    <p class="time">${video.duration}</p>
+                </div>
+    `;
+        video_playlist.innerHTML += video_element;
+    });
+
+    let videos = document.querySelectorAll('.video');
+    videos[0].classList.add('active')
+    videos[0].querySelector('img').src = "{% static 'medias/images/play-50.png' %}";
+    // console.log(videos);
+
+    videos.forEach(selected_video => {
+        selected_video.addEventListener('click', () => {
+            for (all_videos of videos) {
+
+                all_videos.classList.remove('active')
+                all_videos.querySelector('img').src = "{% static 'medias/images/play-50.png' %}";
+                //all_videos.querySelector('img').src = "{% static 'medias/images/play.svg' %}";
+            }
+            selected_video.classList.add('active')
+            selected_video.querySelector('img').src = "{% static 'medias/images/pause-50.png' %}";
+
+            let match_video = data.find(video => video.id === selected_video.dataset.id);
+            //main_video.src = 'videos/' + match_video.name;
+            main_video.src = "{% static 'medias/videos/' %}" + match_video.name;
+            main_video_title.innerHTML = "{% static 'medias/videos/' %}" + match_video.title;
+            //main_video_title.innerHTML = 'videos/' + match_video.title;
+        })
+    })
+</script>
+{% endblock %}

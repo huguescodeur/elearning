@@ -1,0 +1,103 @@
+{% extends 'partials/base.html' %} {% load static %} {% block body %}
+<style>
+    .main-video {
+        background: url("{% static 'medias/images/background.png' %}") no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+
+<div data-is-premium="{{ is_premium|yesno:'true,false' }}" class="mes_formations mt-20 mb-10">
+    <main class="containers">
+        <section class="main-video" style="position: relative;">
+            <video id="main-video" controls></video>
+            <h3 class="title">Title of the playing video</h3>
+
+            <div id="premium-popup">
+                <p class="text-white text-lg">Contenu réservé aux membres premiums.</p>
+                <button class="px-4 py-3 rounded mt-4" onclick="location.href='/devenir-premium';"> <span> ⭐ </span>
+                    Devenir
+                    premium</button>
+            </div>
+        </section>
+
+        <section class="video-playlist border shadow px-2">
+            <h3 class="title text-blue-400 font-bold pt-2"> {{course_title}} </h3>
+            <p class="text-gray-400">{{ total_lessons }} lessons   .   {{ total_duration }}</p>
+            <div class="videos">
+
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<script>
+    console.log("Formation")
+
+    const main_video = document.querySelector(".main-video video");
+    const main_video_title = document.querySelector(".main-video .title");
+    const video_playlist = document.querySelector(".video-playlist .videos");
+    const freeIconPath = "{% static 'medias/images/unlock.png' %}";
+    const premiumIconPath = "{% static 'medias/images/lock.png' %}";
+
+
+    let playlistData = JSON.parse('{{ playlist|safe }}');
+    let is_premium = document.querySelector(".mes_formations").dataset.isPremium === 'true';
+
+
+    let data = playlistData;
+
+
+
+    data.forEach((video, i) => {
+        let path = video.access === 'gratuit' ? freeIconPath : premiumIconPath
+
+        let video_element = `
+            <div class="video " data-id="${video.id}" data-slug="${video.slug}">
+                <img src="${path}" alt="">
+                <p>0${i + 1}.</p>
+                <h3 class="title">${video.title}</h3>
+                <p class="time">${video.duration}</p>
+            </div>
+        `;
+        video_playlist.innerHTML += video_element;
+    });
+
+    let videos = document.querySelectorAll('.video');
+    videos[0].classList.add('active')
+
+    videos.forEach(selected_video => {
+        selected_video.addEventListener('click', () => {
+            
+            videos.forEach(video => {
+                video.classList.remove('active');
+            });
+
+            selected_video.classList.add('active');
+
+            let match_video = data.find(video => video.id === selected_video.dataset.id);
+
+
+            main_video_title.innerHTML = match_video.access === 'gratuit' ? 'Gratuit' : 'Premium';
+            if (match_video.access === 'premium' && !is_premium) {
+
+                document.getElementById('premium-popup').style.display = 'block';
+                document.getElementById('main-video').src = ""; // Ne pas définir la source de la vidéo
+                document.getElementById('main-video').controls = false; // Désactiver les contrôles
+            } else {
+                document.getElementById('premium-popup').style.display = 'none';
+                document.getElementById('main-video').src = "{% static 'medias/videos/' %}" + match_video.name; // Mettre à jour la source de la vidéo à la vidéo sélectionnée
+                document.getElementById('main-video').controls = true; // Activer les contrôles
+            }
+
+
+        });
+    });
+
+    videos[0].click();
+
+</script>
+{% endblock %}

@@ -1,0 +1,409 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block body %}
+{% if messages %}
+<ul class="messages text-sm hidden" role="alert">
+    {% for message in messages %}
+    <li id="flash-message" {% if message.tags %} class="{{ message.tags }} font-medium text-red-400" {%endif%}>
+        {{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<div class="mt-70 section-intro">
+    <section class="  text-slate-950 px-12 pt-40">
+        <div class="relative flex flex-col justify-center mx-auto sm:py-12 lg:py-6 lg:flex-row lg:justify-between">
+            <div class="pl-2 flex flex-col justify-center  text-center rounded-sm lg:max-w-md xl:max-w-lg lg:text-left">
+                <h2 class="text-5xl font-bold leadi sm:text-6xl"><span class="text-blue-500">Apprenez</span> <br>
+                    de
+                    nouvelles
+                    choses.
+                </h2>
+                <p class="mt-6 mb-8 text-base sm:mb-12">Améliorez-vous et apprenez de nouvelles choses grâce à plus de
+                    <span class="font-bold">123 heures</span>
+                    de tutoriels vidéos gratuits.
+                </p>
+                <div
+                    class="flex flex-col space-y-4 sm:items-center sm:justify-center sm:flex-row sm:space-y-0 sm:space-x-4 lg:justify-start">
+                    {% if user %}
+                    <a rel="noopener noreferrer" href="{% url 'formations' %}"
+                        class="px-3 py-4 text-lg font-semibold rounded bg-blue-500 text-white hover:bg-blue-600">Voir
+                        les formations</a>
+                    {% else %}
+                    <a rel="noopener noreferrer" href="{% url 'inscription' %}"
+                        class="px-3 py-4 text-lg font-semibold rounded bg-blue-500 text-white hover:bg-blue-600">Créer
+                        votre compte</a>
+                    {% endif %}
+                    <a rel="noopener noreferrer" href="{% url 'tutoriels' %}"
+                        class="px-3 py-4 text-lg font-semibold border rounded  text-blue-500 dark:border-blue-500 hover:bg-blue-600 hover:text-white">Voir
+                        les
+                        tutoriels</a>
+                </div>
+            </div>
+            <div id="div-img-intro" class=" flex items-center justify-center mt-8 lg:mt-0 h-72  lg:h-96 ">
+                <img src="{% static 'medias/images/intro-left-img.png' %}" alt=""
+                    class="object-contain h-72 sm:h-80 lg:h-96 xl:h-112 2xl:h-128">
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+<!===========Section Apprendre Grâce À Plusieurs Format========>
+    <section class="apprendre-format pt-20  ">
+        <div class="px-12 mx-auto">
+            <div class="flex flex-col items-center -mx-4">
+                <div class="  text-center apprendre-format-title w-full lg:w-1/2 px-4 flex items-center ">
+                    <div class="flex justify-center flex-col mb-8 text-center">
+                        <h2 class="text-5xl font-bold leadi sm:text-6xl leading-tight mb-4">
+                            Apprendre grâce à <br><span class="text-blue-500">plusieurs formats</span>
+
+                        </h2>
+                        <p class="text-base ">
+                            Vous cherchez une formation complète pour apprendre de zéro et finir en héros ou une vidéo
+                            pour
+                            découvrir un nouvel outil ? Vous devriez
+                            trouver votre bonheur.
+
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="mes-three flex justify-center flex-wrap">
+                    <div class="div-rounded w-full md:w-1/2 lg mb-8 px-1">
+
+                        <div class=" rounded flex justify-center">
+                            <div
+                                class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
+                                <div class="flex items-center justify-between mb-4">
+                                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">Les
+                                        dernières
+                                        formations
+                                    </h5>
+                                    <a href="{% url 'formations' %}"
+                                        class="text-sm font-medium text-blue-500 hover:text-blue-600 white:text-blue-500">
+                                        Voir tous
+                                    </a>
+                                </div>
+                                <div class="flow-root ">
+                                    <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-300">
+
+                                        {% for formation in all_formation %}
+                                        <li class="py-3 sm:py-4">
+                                            <div class="flex items-center">
+                                                <div class="flex-shrink-0">
+                                                    <img class="w-8 h-8 rounded-full" src="{% static formation.2  %}"
+                                                        alt="Logo">
+                                                </div>
+                                                <div class="flex-1 min-w-0 ms-4">
+                                                    <p
+                                                        class="text-sm font-medium text-gray-900 truncate white:text-black">
+                                                        <a href="{% url 'mes_formations' formation.0 %}">
+                                                            {{formation.0}} </a>
+                                                    </p>
+                                                    <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                        {{formation.5}} Chapitres
+                                                    </p>
+                                                </div>
+                                                <!-- <div
+                                                                                                                    class="inline-flex items-center text-base font-semibold text-blue-500 ">
+                                                                                                                    <a href="#">Voir</a>
+                                                                                                                </div> -->
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- ----------------- -->
+
+                    <!-- dark:bg-gray-800 dark:border-gray-700 -->
+
+                    <!===== Les derniers tutoriels=====>
+                        <div class="div-rounded w-full md:w-1/2 lg mb-8 px-1">
+
+                            <div class="rounded flex justify-center">
+                                <div
+                                    class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
+                                    <div class="flex items-center justify-between mb-4">
+                                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">Les
+                                            derniers
+                                            tutoriels
+                                        </h5>
+                                        <a href="{% url 'tutoriels'%}"
+                                            class="text-sm font-medium text-blue-500 hover:text-blue-600 white:text-blue-500">
+                                            Voir tous
+                                        </a>
+                                    </div>
+                                    <div class="flow-root ">
+                                        <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-300">
+                                            {% for tutorial in all_tutorial %}
+                                            <li class="py-3 sm:py-4">
+                                                <div class="flex items-center">
+                                                    <div class="flex-shrink-0">
+                                                        <img class="w-8 h-8 rounded-full" src="{% static tutorial.2  %}"
+                                                            alt="Logo">
+                                                    </div>
+                                                    <div class="flex-1 min-w-0 ms-4">
+                                                        <p
+                                                            class="text-sm font-medium text-gray-900 truncate white:text-black">
+                                                            <a href="{% url 'mes_tutoriels' tutorial.5 tutorial.6 %}">
+                                                                {{tutorial.0}} </a>
+                                                        </p>
+                                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                            {{tutorial.3}}
+                                                        </p>
+                                                    </div>
+                                                    <!-- <div
+                                                                                                                            class="inline-flex items-center text-base font-semibold text-blue-500 ">
+                                                                                                                            <a href="#">Voir</a>
+                                                                                                                        </div> -->
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!===== Les dernières info=====>
+
+                            <!-- <div class="div-rounded w-full md:w-1/2 lg mb-8 px-1">
+
+                                <div class=" rounded flex justify-center">
+                                    <div
+                                        class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
+                                        <div class="flex items-center justify-between mb-4">
+                                            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">
+                                                Tous les articles
+                                            </h5>
+                                            <a href="#"
+                                                class="text-sm font-medium text-blue-500 hover:text-blue-600 white:text-blue-500">
+                                                Voir tous
+                                            </a>
+                                        </div>
+                                        <div class="flow-root ">
+                                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-300">
+                                                <li class="py-3 sm:py-4">
+                                                    <div class="flex items-center">
+
+                                                        <div class="flex-1 min-w-0 ms-4">
+                                                            <p
+                                                                class="text-sm font-medium text-gray-900 truncate white:text-black">
+                                                                <a href="#">Comment bien débuter<br>en programmation</a>
+                                                            </p>
+                                                            <p
+                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                                19 Janvier 2024
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li class="py-3 sm:py-4">
+                                                    <div class="flex items-center ">
+
+                                                        <div class="flex-1 min-w-0 ms-4">
+                                                            <p
+                                                                class="text-sm font-medium text-gray-900 truncate  white:text-black">
+                                                                <a href="#">Lequel choisir entre Boostrap <br>et
+                                                                    Tailwind css</a>
+                                                            </p>
+                                                            <p
+                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                                15 Novembre 2023
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+                                                <li class="py-3 sm:py-4">
+                                                    <div class="flex items-center">
+
+                                                        <div class="flex-1 min-w-0 ms-4">
+                                                            <p
+                                                                class="text-sm font-medium text-gray-900 truncate white:text-black">
+                                                                <a href="#">Pourquoi j'ai choisir Flutter</a>
+                                                            </p>
+                                                            <p
+                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                                                12 Mai 2023
+                                                            </p>
+                                                        </div>
+
+                                                    </div>
+                                                </li>
+
+
+
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> -->
+
+                </div>
+                <!===== Les dernières formations=====>
+
+
+
+
+                    <!-- ----------------- -->
+
+
+
+
+
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- component -->
+    <!-- This is an example component -->
+    <link href="https://unpkg.com/pattern.css" rel="stylesheet">
+
+    <div>
+        <section class="text-black">
+            <div class="max-w-6xl mx-auto px-5 py-24 ">
+                <div class="text-center mb-20">
+                    <h2
+                        class=" title-font  mb-4 text-4xl font-bold leading-10 tracking-tight sm:text-5xl sm:leading-none md:text-6xl">
+                        Compétences à <br><span class="text-blue-500">aquérir</span>
+                    </h2>
+                    <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">L'informatique est vaste et les
+                        langages
+                        naissent presque à tout moment, je fais tout mon possible pour être à la hauteur afin de
+                        répondre au
+                        besoin de tout un chacun et d'apporter de l'aide aux nouveaux développeurs.</p>
+                    <div class="flex mt-6 justify-center">
+                        <div class="w-16 h-1 rounded-full bg-blue-500 inline-flex"></div>
+                    </div>
+                </div>
+                <div class="competence flex flex-wrap sm:-m-4 -mx-4 -mb-10 -mt-4 pr-10">
+                    <div class="competence-item p-10 md:w-1/3 md:mb-0 mb-6 flex flex-col ">
+                        <div class="pattern-dots-md text-blue-600">
+                            <div class="rounded bg-blue-500 p-4 transform translate-x-6 -translate-y-6  ">
+                                <div
+                                    class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-5 flex-shrink-0 p-2">
+                                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4">
+                                        </path>
+                                    </svg>
+                                </div>
+                                <div class="flex-grow text-white">
+                                    <h2 class=" text-xl title-font font-medium mb-3 ">Application Web</h2>
+                                    <p class="leading-relaxed text-sm text-justify">
+                                        La crétion d'applications web t'interesse? Alors tu es au bon endroit! Mon
+                                        objectif est de vous apprendre à créer des sites à la fois fonctionnels et
+                                        visuellement captivants tout en partant de zéro
+
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competence-item p-10 md:w-1/3 md:mb-0 mb-6 flex flex-col ">
+                        <div class="pattern-dots-md text-blue-600">
+                            <div class="rounded bg-blue-500 p-4 transform translate-x-6 -translate-y-6  ">
+                                <div
+                                    class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-green-500 mb-5 flex-shrink-0 p-2">
+                                    <svg style="color: blue" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                        fill="currentColor" class="bi bi-phone w-6 h-6" viewBox="0 0 16 16">
+                                        <path
+                                            d="M11 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h6zM5 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H5z"
+                                            fill="blue"></path>
+                                        <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="blue"></path>
+                                    </svg>
+                                    <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
+                                    </path>
+                                </svg> -->
+                                </div>
+                                <div class="flex-grow text-white">
+                                    <h2 class=" text-xl title-font font-medium mb-3 ">Application Mobile</h2>
+                                    <p class="leading-relaxed text-sm text-justify">Envie de donner vie à tes idées
+                                        d'app
+                                        mobiles ? Alors bienvenue !
+                                        Mon objectif est de te guider dans la création d'applications qui allient
+                                        fonctionnalité et design attrayant, dès le
+                                        début.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="competence-item p-10 md:w-1/3 md:mb-0 mb-6 flex flex-col ">
+                        <div class="pattern-dots-md text-blue-600">
+                            <div class="rounded bg-blue-500 p-4 transform translate-x-6 -translate-y-6  ">
+                                <div
+                                    class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-blue-100 text-blue-500 mb-5 flex-shrink-0 p-2">
+                                    <svg style="color: rgb(78, 95, 228);" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 512 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. -->
+                                        <path
+                                            d="M184 0C214.9 0 240 25.07 240 56V456C240 486.9 214.9 512 184 512C155.1 512 131.3 490.1 128.3 461.9C123.1 463.3 117.6 464 112 464C76.65 464 48 435.3 48 400C48 392.6 49.27 385.4 51.59 378.8C21.43 367.4 0 338.2 0 304C0 272.1 18.71 244.5 45.77 231.7C37.15 220.8 32 206.1 32 192C32 161.3 53.59 135.7 82.41 129.4C80.84 123.9 80 118 80 112C80 82.06 100.6 56.92 128.3 49.93C131.3 21.86 155.1 0 184 0zM383.7 49.93C411.4 56.92 432 82.06 432 112C432 118 431.2 123.9 429.6 129.4C458.4 135.7 480 161.3 480 192C480 206.1 474.9 220.8 466.2 231.7C493.3 244.5 512 272.1 512 304C512 338.2 490.6 367.4 460.4 378.8C462.7 385.4 464 392.6 464 400C464 435.3 435.3 464 400 464C394.4 464 388.9 463.3 383.7 461.9C380.7 490.1 356.9 512 328 512C297.1 512 272 486.9 272 456V56C272 25.07 297.1 0 328 0C356.9 0 380.7 21.86 383.7 49.93z"
+                                            fill="#4e5fe4"></path>
+                                    </svg>
+                                </div>
+                                <div class="flex-grow text-white">
+                                    <h2 class=" text-xl title-font font-medium mb-3 ">Data Science</h2>
+                                    <p class="leading-relaxed text-sm text-justify">Désirez vous apprendre la science
+                                        des
+                                        données ? Nous allons apprendre à analyser les données ?. Avant de devenir
+                                        conçevoir des modèles d'IA puissants, et ensuite les intégrer dans nos projets
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                </div>
+        </section>
+    </div>
+
+    <!===== Devenir Premium====>
+
+
+
+
+
+        <script>
+            const setup = () => {
+                return {
+                    isNavOpen: false,
+
+                    billPlan: 'monthly',
+
+                    plans: [
+
+                        {
+                            name: 'Devenir premium (1 mois)',
+                            discretion: 'Better for growing businesses that want more customers.',
+                            price: {
+                                monthly: 5,
+                                annually: 50,
+                            },
+                            features: ['Two projects', 'Your dashboard', 'Components included', 'Advanced charts'],
+                        },
+
+                    ],
+                }
+            }
+        </script>
+
+
+        {% endblock %}

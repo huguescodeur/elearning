@@ -1,0 +1,85 @@
+{% load tailwind_tags %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- ? Link Tailwaind -->
+    <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+
+
+
+    <style>
+        [x-cloak] {
+            display: none;
+        }
+    </style>
+
+
+
+
+
+    <title> {% if title %}
+        {{ title }} | Hugues Codeur 🧠
+        {% else %}
+        Hugues Codeur | E-learning 🧠
+        {% endif %} </title>
+
+    {% tailwind_css %}
+</head>
+
+<body>
+    <!-- ? Header -->
+    <header>
+        {% if 'user_id' in request.session %}
+        {% include 'partials/base_login_nav.html' %}
+        {% else %}
+        {% include 'partials/base_logout_nav.html' %}
+        {% endif %}
+
+
+    </header>
+    <!-- Main -->
+    {% block body %}
+
+    {% endblock %}
+
+    <!-- Footer -->
+    <footer>
+        {% include 'partials/footer.html'%}
+    </footer>
+
+</body>
+
+
+
+<script>
+    // Scroll Navbar
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY < lastScroll) {
+            navbar.style.top = 0;
+        } else {
+            navbar.style.top = "-90px";
+        }
+
+        lastScroll = window.scrollY;
+    });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+    integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
+
+
+<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
+</html>
+<!-- <link rel="stylesheet" href="{% static 'css/style.css' %} "> -->

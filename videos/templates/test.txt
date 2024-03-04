@@ -1,0 +1,101 @@
+<!-- <script>
+    $(document).ready(function () {
+        $('.search-input').on('keyup', function () {
+            var searchQuery = $(this).val();
+
+            if (searchQuery) {
+                $.ajax({
+                    url: '/formations/search_suggestions_formations/',
+                    data: {
+                        'search': searchQuery
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        // Vider le conteneur de suggestions
+                        $('#search-suggestions').empty();
+
+                        // Ajouter les nouvelles suggestions
+                        $.each(data, function (index, suggestion) {
+                            var newSuggestion = `<a href="/formations/?search=${suggestion}">${suggestion}</a>`;
+                            $('#search-suggestions').append(newSuggestion);
+                        });
+                    }
+                });
+            } else {
+                $('#search-suggestions').empty();
+
+            }
+
+
+        });
+    });
+</script> -->
+
+
+<script>
+    $(document).ready(function () {
+        $('.search-input').on('keyup', function () {
+            var searchQuery = $(this).val();
+
+            $.ajax({
+                url: '/formations/',
+                data: {
+                    'search': searchQuery
+                },
+                dataType: 'json',
+                success: function (data) {
+                    // Vider le conteneur de formations
+                    $('.div-tuto-container').empty();
+
+                    // Ajouter les nouvelles formations
+                    $.each(data, function (index, formation) {
+                        var newFormation = `
+            <div class="div-tuto rounded overflow-hidden shadow-lg border pt-4">
+                <a href="/mes_formations/${formation[0]}/">
+                    <div class="div-tuto-titre px-6 flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="/static/${formation[2]}" alt="Logo" />
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="px-6">
+                    <a href="/mes_formations/${formation[0]}/" class="titre-tuto pb-2 font-semibold text-lg inline-block ">
+                        Formation ${formation[0]}
+                    </a>
+                    <div class="limited-lines text-gray-500 rounded-lg">
+                        <a href="/mes_formations/${formation[0]}/">
+                            <p class="text-sm">${formation[1]}</p>
+                        </a>
+                    </div>
+                </div>
+                <a href="/mes_formations/${formation[0]}/">
+                    <div class="formation-div-time-icon div-time-icon px-6 py-4 flex flex-row items-center justify-between">
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400 ">${formation[5]} Chapitres</p>
+                        <span href="#" class="pl-2 time-icon py-1 text-sm font-regular text-gray-500 mr-1 flex flex-row justify-between items-center">
+                            <svg style="color: rgb(107, 114, 128)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" fill="#6b7280"></path>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" fill="#6b7280"></path>
+                            </svg>
+                            <span class="ml-1 "> ${formation[3]} </span>
+                        </span>
+                    </div>
+                </a>
+            </div>`;
+                        $('.div-tuto-container').append(newFormation);
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+
+ <form class="search-container" method="GET" action="/formations/">
+                    <input type="text" name="search" placeholder="Search..." class="search-input">
+                    <div id="search-suggestions" class="search-suggestions"></div>
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>

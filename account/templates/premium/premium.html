@@ -1,0 +1,132 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block body %}
+<div class="px-12 intro-premium-container h-40 ">
+    <h1 class="mb-4 font-bold leadi sm:text-6xl leading-tight text-blue-500">Devenir premium</h1>
+    <p class="leadi sm:text-2xl leading-tight">Devenir premium sur Hugues Codeur, c'est soutenir la création de nouveaux
+        contenus chaque semaine
+        et accéder à du
+        contenu
+        exclusif pour apprendre et s'améliorer (comme avoir accès à toutes les vidéos et aux codes sources).</p>
+</div>
+
+<div class="box-premium-container px-12">
+    <div class="devenir-premium">
+        <!===== Devenir Premium====>
+            <div class="container mx-auto antialiased text-gray-900 bg-white" x-data="setup()">
+                <!-- Navbar -->
+
+
+                <main class="mr-4 my-16">
+
+                    <!-- Plan switch -->
+                    <div class="flex items-center justify-center mt-10 space-x-4">
+                        <span class="text-base font-medium" :class="{ 'text-blue-500': billPlan == 'monthly' }">1
+                            Mois</span>
+                        <button
+                            class="relative rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                            x-cloak @click="billPlan == 'monthly' ? billPlan = 'annually' : billPlan = 'monthly'">
+                            <div class="w-16 h-8 transition bg-blue-500 rounded-full shadow-md outline-none"></div>
+                            <div class="absolute inline-flex items-center justify-center w-6 h-6 transition-all duration-200 ease-in-out transform bg-white rounded-full shadow-sm top-1 left-1"
+                                :class="{ 'translate-x-0': billPlan == 'monthly', 'translate-x-8': billPlan == 'annually' }">
+                            </div>
+                        </button>
+                        <span class="text-base font-medium" :class="{ 'text-blue-500': billPlan == 'annually' }">1
+                            An</span>
+                    </div>
+
+                    <!-- Plans -->
+                    <div
+                        class="flex flex-col items-center justify-center mt-16 space-y-8 lg:flex-row lg:items-stretch lg:space-x-8 lg:space-y-0">
+                        <template x-for="(plan, i) in plans" x-key="i">
+                            <section
+                                class="border-2 flex flex-col w-full max-w-sm p-12 space-y-6 bg-white rounded-lg shadow-md">
+                                <!-- Price -->
+                                <div class="flex-shrink-0 text-center">
+                                    <span class="text-8xl font-bold tracking-tight"
+                                        :class="plan.name == 'Devenir premium (1 mois)' ? 'text-blue-500' : ''"
+                                        x-text="`${billPlan == 'monthly' ? plan.price.monthly : plan.price.annually}`"></span>
+                                    <span class="text-blue-500 text-2xl font-bold"
+                                        x-text="billPlan == 'monthly' ? '€TTC' : '€TTC'"></span>
+                                </div>
+
+                                <!-- Features -->
+                                <ul class="flex-1 space-y-4 ">
+                                    <li class="border-b text-center text-2xl py-4">Visionner les tutoriels <br>
+                                        <span class="font-bold">en avance</span>
+                                    </li>
+                                    <li class="border-b text-center text-2xl py-4 ">Voir les vidéos
+                                        <br>
+                                        <a href="#"
+                                            class="transition ease-in-out delay-150 font-bold hover:text-blue-500">Premium</a>
+                                    </li>
+                                    <li class="border-b text-center text-2xl py-4">
+                                        <span class="font-bold">Télécharger</span><br>
+                                        les vidéos
+                                    </li>
+
+                                    <li class="border-b text-center text-2xl py-4">
+                                        <span class="font-bold">Télécharger</span><br>
+                                        les sources
+                                    </li>
+                                </ul>
+
+                                <!-- Button -->
+                                <div class="flex-shrink-0 pt-4">
+                                    <button
+                                        class="font-bold inline-flex items-center justify-center w-full max-w-xs px-4 py-2 transition-colors border rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600"
+                                        :class="plan.name == 'Devenir premium (1 mois)' ? 'bg-blue-500 text-white hover:bg-blue-600' : 'hover:bg-blue-500 hover:text-white'"
+                                        x-text="`${plan.name == 'Devenir premium (1 mois)' && billPlan == 'annually' ? 'Devenir premium (1 an)' : plan.name}`"></button>
+                                </div>
+                            </section>
+                        </template>
+                    </div>
+                </main>
+
+            </div>
+    </div>
+
+    <!==== Pourquoi Devenenir Premium====>
+        <div class="pourquoi-premium">
+            <h2 class="font-bold leadi sm:text-3xl leading-tight">Pourquoi cette offre ?</h2>
+
+            <p class="mb-2">Mon but à travers Hugues Codeur est de partager mes connaissances avec le plus grand nombre,
+                c'est
+                pourquoi j'essaie de
+                rendre un maximum de contenu gratuit et public.</p> <br>
+
+            Malgré tout, l'hébergement, la préparation, l'enregistrement et le montage des tutoriels qui prend un temps
+            considérable (5h
+            à 8 heures
+            par semaine). Du coup proposer des options payantes, comme le téléchargement des sources, me permet
+            d'amortir une partie
+            du temps passé et de continuer à faire vivre le site.
+
+
+        </div>
+</div>
+
+<script>
+    const setup = () => {
+        return {
+            isNavOpen: false,
+
+            billPlan: 'monthly',
+
+            plans: [
+
+                {
+                    name: 'Devenir premium (1 mois)',
+                    discretion: 'Better for growing businesses that want more customers.',
+                    price: {
+                        monthly: 5,
+                        annually: 50,
+                    },
+                    features: ['Two projects', 'Your dashboard', 'Components included', 'Advanced charts'],
+                },
+
+            ],
+        }
+    }
+</script>
+{% endblock %}

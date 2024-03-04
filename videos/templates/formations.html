@@ -1,0 +1,188 @@
+{% extends 'partials/base.html' %} {% load static %} {% block body %}
+<section class="apprendre-format pt-14 mt-14">
+    <div class="px-12 mx-auto">
+        <!==== Tous Les Tutoriels===>
+            <div class="flex flex-col items-center -mx-4">
+                <div class="text-center apprendre-format-title w-full lg:w-1/2 px-4 flex items-center">
+                    <div class="flex justify-center flex-col text-center">
+                        <h2 class="text-5xl font-bold leadi sm:text-6xl leading-tight mb-4">
+                            Toutes les <span class="text-blue-500">formations</span>
+                        </h2>
+                        <p class="text-base">
+                            Découvrez une technologie spécifique à travers une série de vidéo qui vous guidera dans
+                            votre apprentissage
+
+                        </p>
+                    </div>
+                </div>
+
+
+                <!-- <form class="search-container" method="GET" action="/formations/">
+                    <input type="text" name="search" placeholder="Search..." class="search-input">
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form> -->
+
+                <form class="search-container" method="GET" action="/formations/">
+                    <input type="text" name="search" placeholder="Search..." class="search-input" autocomplete="off">
+                    <!-- <div id="search-suggestions" class="search-suggestions"></div> -->
+                    <button type="submit" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+
+
+
+                <!==== Card Des Tutoriels====>
+                    <div class=" max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16 mb-8">
+
+                        {% if all_formation %}
+                        <div class=" grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10 div-tuto-container">
+                            <!-- Card 1 -->
+
+
+                            {% for formation in all_formation %}
+
+                            <div class="div-tuto  rounded overflow-hidden shadow-lg border pt-4">;
+                                <a href="{% url 'mes_formations' formation.0 %}">
+
+                                    <!-- Mon ajout -->
+                                    <div class="div-tuto-titre px-6 flex items-center justify-between mb-4">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0">
+
+                                                <img class="w-8 h-8 rounded-full" src="{% static formation.2  %}"
+                                                    alt="Logo" />
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </a>
+
+                                <div class="px-6">
+
+                                    <a href="{% url 'mes_formations' formation.0 %}"
+                                        class="titre-tuto pb-2 font-semibold text-lg inline-block ">
+                                        {{formation.0}}</a>
+
+                                    <div class="limited-lines text-gray-500 rounded-lg">
+                                        <a href="{% url 'mes_formations' formation.0 %}">
+                                            <p class="text-sm">
+                                                {{formation.1}}
+                                            </p>
+                                        </a>
+                                    </div>
+                                </div>
+
+
+                                <a href="{% url 'mes_formations' formation.0 %}">
+                                    <div
+                                        class="formation-div-time-icon div-time-icon px-6 py-4 flex flex-row items-center justify-between">
+                                        <p class="text-sm text-gray-500 truncate dark:text-gray-400 ">
+                                            {{formation.5}} Chapitres
+                                        </p>
+
+
+                                        <span href="#"
+                                            class="pl-2 time-icon py-1 text-sm font-regular text-gray-500 mr-1 flex flex-row justify-between items-center">
+                                            <svg style="color: rgb(107, 114, 128)" xmlns="http://www.w3.org/2000/svg"
+                                                width="16" height="16" fill="currentColor" class="bi bi-clock"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
+                                                    fill="#6b7280"></path>
+                                                <path
+                                                    d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"
+                                                    fill="#6b7280">
+                                                </path>
+                                            </svg>
+                                            <span class="ml-1 "> {{formation.3}} </span></span>
+                                    </div>
+                                </a>
+
+                            </div>
+                            {% endfor %}
+
+
+
+
+                        </div>
+                        {% else %}
+                        <p class="text-4xl">Aucun Resultat Trouvé</p>
+                        {% endif %}
+                    </div>
+
+            </div>
+    </div>
+</section>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+<script>
+
+
+    $(document).ready(function () {
+        $('.search-input').on('keyup', function () {
+            var searchQuery = $(this).val();
+
+
+            $.ajax({
+                url: '/formations/',
+                data: {
+                    'search': searchQuery
+                },
+                dataType: 'json',
+                success: function (data) {
+                    // Vider le conteneur de formations
+                    $('.div-tuto-container').empty();
+
+
+
+                    // Ajouter les nouvelles formations
+                    $.each(data, function (index, formation) {
+                        var newFormation = `
+            <div class="div-tuto rounded overflow-hidden shadow-lg border pt-4">
+                <a href="playlist/${formation[0]}/">
+                    <div class="div-tuto-titre px-6 flex items-center justify-between mb-4">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="w-8 h-8 rounded-full" src="/static/${formation[2]}" alt="Logo" />
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <div class="px-6">
+                    <a href="playlist/${formation[0]}/" class="titre-tuto pb-2 font-semibold text-lg inline-block ">
+                        Formation ${formation[0]}
+                    </a>
+                    <div class="limited-lines text-gray-500 rounded-lg">
+                        <a href="playlist/${formation[0]}/">
+                            <p class="text-sm">${formation[1]}</p>
+                        </a>
+                    </div>
+                </div>
+                <a href="playlist/${formation[0]}/">
+                    <div class="formation-div-time-icon div-time-icon px-6 py-4 flex flex-row items-center justify-between">
+                        <p class="text-sm text-gray-500 truncate dark:text-gray-400 ">${formation[5]} Chapitres</p>
+                        <span href="#" class="pl-2 time-icon py-1 text-sm font-regular text-gray-500 mr-1 flex flex-row justify-between items-center">
+                            <svg style="color: rgb(107, 114, 128)" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clock" viewBox="0 0 16 16">
+                                <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z" fill="#6b7280"></path>
+                                <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z" fill="#6b7280"></path>
+                            </svg>
+                            <span class="ml-1 "> ${formation[3]} </span>
+                        </span>
+                    </div>
+                </a>
+            </div>`;
+                        $('.div-tuto-container').append(newFormation);
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock %}

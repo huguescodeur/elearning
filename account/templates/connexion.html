@@ -1,0 +1,97 @@
+{% extends 'partials/base.html' %}
+{% block body %}
+<section class="mt-20 bg-zinc-50	 ">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+
+
+        <p class="text-center flex items-center mb-6 text-2xl font-semibold text-blue-500 ">
+            Se connecter à Hugues Codeur
+        </p>
+
+        {% if messages %}
+        <ul class="messages text-sm" role="alert">
+            {% for message in messages %}
+            <li id="flash-message" {% if message.tags %} class="{{ message.tags }} font-medium text-red-400" {%endif%}>
+                {{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <div
+            class="transition ease-in-out delay-150 hover:border-blue-500 w-full bg-white rounded-lg shadow  md:mt-0 sm:max-w-md xl:p-0  border shadow-lg ">
+            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                <h1 class="text-xl text-center font-bold leading-tight tracking-tight text-gray-900 md:text-2xl ">
+                    Connexion
+                </h1>
+                <form class="space-y-4 md:space-y-6" action="/connexion/" method="post">
+                    {% csrf_token %}
+                    <div>
+                        <!-- <label for="email" class="block mb-2 text-sm text-center font-medium text-gray-400">Email</label> -->
+                        <input type="email" name="email" id="email"
+                            class=" text-center bg-gray-50 border border-gray-300 focus:outline-none focus:ring-1 ring-offset-2 ring-blue-500 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5   placeholder-gray-400  "
+                            placeholder="huguescodeur@gmail.com" required="">
+                    </div>
+                    <div>
+                        <!-- <label for="password" class="block mb-2 text-sm font-medium text-gray-400 ">Mot de passe</label> -->
+                        <input type="password" name="password" id="password" placeholder="••••••••"
+                            class="text-center bg-gray-50 border border-gray-300 focus:outline-none focus:ring-1 ring-offset-2 ring-blue-500 text-gray-900 sm:text-sm rounded-lg  block w-full p-2.5   placeholder-gray-400  "
+                            required="">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-start">
+
+                            <div class="flex items-center h-5">
+                                <label class="relative flex items-center p-3 rounded-full cursor-pointer"
+                                    htmlFor="blue">
+                                    <input id="remember" aria-describedby="remember" type="checkbox"
+                                        class=" before:content[''] peer relative h-5 w-5 cursor-pointer appearance-none rounded-md border border-blue-gray-200 transition-all before:absolute before:top-2/4 before:left-2/4 before:block before:h-12 before:w-12 before:-translate-y-2/4 before:-translate-x-2/4 before:rounded-full before:bg-blue-gray-500 before:opacity-0 before:transition-opacity checked:border-blue-500 checked:bg-blue-500 checked:before:bg-blue-500 hover:before:opacity-10" />
+                                    <span
+                                        class="absolute text-white transition-opacity opacity-0 pointer-events-none top-2/4 left-2/4 -translate-y-2/4 -translate-x-2/4 peer-checked:opacity-100">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" viewBox="0 0 20 20"
+                                            fill="currentColor" stroke="currentColor" stroke-width="1">
+                                            <path fill-rule="evenodd"
+                                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                                clip-rule="evenodd"></path>
+                                        </svg>
+                                    </span>
+                                </label>
+
+
+                            </div>
+                            <div class="text-sm">
+                                <label for="remember" class="text-gray-500 dark:text-gray-300">Se rappeler de
+                                    moi</label>
+                            </div>
+                        </div>
+                        <a href="{% url 'password_reset' %}"
+                            class="text-sm font-medium text-primary-600 hover:text-gray-600 ">Mot de passe
+                            oublié?</a>
+                    </div>
+                    <div class="w-full pt-2 flex justify-center">
+                        <button type="submit"
+                            class="w-1/2 bg-blue-500 hover:bg-blue-600  text-white border bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center hover:bg-primary-700 focus:ring-primary-800">Connexion
+                        </button>
+                    </div>
+                    <div class="w-full flex justify-center">
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Vous n'avez pas de compte? <a href="{% url 'inscription' %}"
+                                class="font-medium text-blue-500 hover:text-blue-600 ">Inscrivez-vous</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+    setTimeout(function () {
+        var flashMessage = document.getElementById("flash-message");
+        if (flashMessage) {
+            flashMessage.style.display = "none";
+        }
+    }, 3000);
+
+</script>
+{% endblock %}
