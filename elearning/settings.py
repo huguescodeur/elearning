@@ -46,10 +46,12 @@ INSTALLED_APPS = [
     'theme',
     'account',
     'videos',
+    # 'embed_video',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -146,6 +148,8 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = 'medias/'
 MEDIA_ROOT = BASE_DIR
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'account/static/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
 
@@ -153,6 +157,9 @@ MEDIA_ROOT = BASE_DIR
 STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 
 TAILWIND_APP_NAME = 'theme'
 NPM_BIN_PATH = "C:/Program Files/nodejs/npm.cmd"
@@ -173,3 +180,11 @@ EMAIL_HOST_USER = 'a'
 EMAIL_HOST_PASSWORD = 'a'
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
+
+# YOUTUBE_DATA_API_KEY = "AIzaSyA-BZSCoYFZPrXXikPe_bFXXdSNQnvhFmU"
+
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.template.context_processors.request',
+)
+
+

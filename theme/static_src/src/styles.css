@@ -330,10 +330,16 @@ li.active a:hover{
 
 #main-video {
     height: 30rem;
+    width:100%;
+    
 }
 
+/* iframe#main-video{
+  width: 100%;
+} */
+
 .main-video {
-        background: url("{% static 'medias/images/background.png' %}") no-repeat center center fixed; 
+        background-image: url('videos/static/media/images/background.png') no-repeat center center fixed; 
         -webkit-background-size: cover;
         -moz-background-size: cover;
         -o-background-size: cover;
@@ -344,6 +350,10 @@ li.active a:hover{
     display: none;
 }
 
+/* iframe{
+  width: 560px;
+  height: 315px;
+} */
 
 .main-video, .video-playlist{
   width: 100%;

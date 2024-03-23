@@ -1,2 +1,0 @@
-// ? Pagination
-alert("Please select");

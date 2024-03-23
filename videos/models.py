@@ -19,7 +19,8 @@ class Videos(models.Model):
     course_description = models.CharField(max_length=255, default="Description")
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
-    video_file = models.FileField(upload_to='videos/static/medias/videos/')
+    # video_file = models.FileField(upload_to='videos/static/medias/videos/')
+    youtube_video_id = models.CharField(max_length=255, blank=True, null=True)
     logo_url = models.CharField(
         max_length=50,
         default='videos/static/medias/logo/python.png')

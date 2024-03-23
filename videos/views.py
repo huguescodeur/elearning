@@ -74,7 +74,7 @@ def playlist_formations_view(request, course, selected_slug=None):
 
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT title, video_file, description, duration, miniature, access, slug
+            SELECT title, youtube_video_id, description, duration, miniature, access, slug
             FROM videos_videos
             WHERE course = %s AND category = "formation"
         """, [course])
@@ -94,7 +94,9 @@ def playlist_formations_view(request, course, selected_slug=None):
         {
             'id': str(index),
             'title': video[0],
-            'name': video[1].replace('videos/static/medias/videos/', ''),
+           
+            'name': f"https://youtu.be/{video[1]}",
+            # 'name': video[1].replace('videos/static/medias/videos/', ''),
             'duration': str(video[3] // 60000000) + ':' + str((video[3] // 1000000) % 60).zfill(2),
             'thumbnail': video[4].replace('videos/static/', ''),
             'access': video[5],
@@ -184,7 +186,7 @@ def playlist_tutorial_view(request, course, selected_slug):
 
     with connection.cursor() as cursor:
         cursor.execute("""
-            SELECT title, video_file, description, duration, miniature, access, slug, course
+            SELECT title, youtube_video_id, description, duration, miniature, access, slug, course
             FROM videos_videos
             WHERE category = %s AND course = %s
         """, ["tutoriel", course])
@@ -213,7 +215,8 @@ def playlist_tutorial_view(request, course, selected_slug):
         {
             'id': str(index),
             'title': video[0],
-            'name': video[1].replace('videos/static/medias/videos/', ''),
+            'name': f"https://youtu.be/{video[1]}",
+            # 'name': video[1].replace('videos/static/medias/videos/', ''),
             'duration': str(video[3] // 60000000) + ':' + str((video[3] // 1000000) % 60).zfill(2),
             'thumbnail': video[4].replace('videos/static/', ''),
             'access': video[5],
