@@ -28,9 +28,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('APP_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -46,10 +46,12 @@ INSTALLED_APPS = [
     'theme',
     'account',
     'videos',
+    'debug_toolbar'
     # 'embed_video',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -148,7 +150,7 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = 'medias/'
 MEDIA_ROOT = BASE_DIR
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+# STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'account/static/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
@@ -173,18 +175,10 @@ INTERNAL_IPS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-EMAIL_BACKEND = 'djando.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'a'
-EMAIL_HOST_PASSWORD = 'a'
-EMAIL_USE_TLS = True
-EMAIL_USE_SSL = False
 
 # YOUTUBE_DATA_API_KEY = "AIzaSyA-BZSCoYFZPrXXikPe_bFXXdSNQnvhFmU"
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.template.context_processors.request',
 )
-
 

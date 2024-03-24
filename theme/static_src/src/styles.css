@@ -662,3 +662,14 @@ li.error {
 } */
 
 
+#contact{
+  background: orange;
+  width: 100%;
+}
+
+@media (min-width: 1024px) {
+  #contact .lg\:-mx-10 {
+    /* margin-left: -2.5rem; */
+    margin-right: 0;
+  }}
+
