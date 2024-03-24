@@ -150,7 +150,7 @@ STATIC_URL = 'static/'
 
 MEDIA_URL = 'medias/'
 MEDIA_ROOT = BASE_DIR
-# STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'account/static/')
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'medias')
