@@ -23,7 +23,7 @@ from django.conf.urls.static import static
 from videos.views import formations_view, playlist_formations_view, tutoriels_view, playlist_tutorial_view, search_suggestions_formations
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('priscille/', admin.site.urls),
     path('', views.index_view, name="accueil"),
     path('tutoriels/', tutoriels_view, name="tutoriels"),
     path('formations/', formations_view, name="formations"),

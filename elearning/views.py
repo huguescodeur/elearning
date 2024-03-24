@@ -54,7 +54,10 @@ def index_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
+        
+        print(context['user'])
+        print(context['image_url'])
 
     all_formation = [
         (course, course_description, logo_url.replace('videos/static/', ''),
@@ -89,7 +92,7 @@ def blog_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
         print(context["image_url"])
     # print(context["user"][-1])
@@ -112,7 +115,7 @@ def contact_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
         print(context["image_url"])
     # print(context["user"][-1])

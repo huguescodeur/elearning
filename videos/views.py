@@ -48,7 +48,7 @@ def formations_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
     all_formation = [
         (course, course_description, logo_url.replace('videos/static/', ''), convert_microseconds_to_time(duration),
@@ -129,7 +129,7 @@ def playlist_formations_view(request, course, selected_slug=None):
         context["is_premium"] = apprenant[0]
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
     # print(context["user"][-1])
 
@@ -160,7 +160,7 @@ def tutoriels_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
     all_tutorial = [
         (title, description, logo_url.replace('videos/static/', ''), convert_microseconds_to_time(duration),
@@ -251,7 +251,7 @@ def playlist_tutorial_view(request, course, selected_slug):
         context["is_premium"] = apprenant[0]
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
     context["selected_slug"] = selected_slug
     # print(context["image_url"])
