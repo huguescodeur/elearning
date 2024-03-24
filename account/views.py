@@ -82,7 +82,7 @@ def inscription_view(request):
         password = request.POST.get('password')
         confirmpassword = request.POST.get('confirmpassword')
         role = request.POST.get('role', 'apprenant')
-        default_image = "account/static/images/user_profil/default_image.png"
+        default_image = "static/user_image/default_image.png"
 
         # default_image = 'account/static/images/default.jpg'
 
@@ -156,7 +156,7 @@ def settings_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
         print(context['user'])
         print(context["image_url"])
@@ -238,7 +238,7 @@ def update_image_view(request):
     if request.method == 'POST':
         image_data = request.FILES['new-image']
         file_name = "{}_{}".format(user[12], image_data.name.replace(' ', '_'))
-        file_path = "account/static/images/user_profil/{}".format(file_name)
+        file_path = "static/user_image/{}".format(file_name)
 
         with open(file_path, 'wb+') as destination:
             for chunk in image_data.chunks():
@@ -282,7 +282,7 @@ def premium_account_view(request):
 
         context['user'] = user
         context["image_url"] = context["user"][13].replace(
-            'account/static/', '')
+            'static/', '')
 
     return render(request, 'premium/premium.html', context)
 

@@ -14,8 +14,8 @@ class User(AbstractUser):
 
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
     nom = models.CharField(max_length=50)
-    image = models.ImageField(upload_to='account/static/images/user_profil/',
-                              default='account/static/images/user_profil/default_image.png')
+    image = models.ImageField(upload_to='static/user_image/',
+                              default='static/user_image//default_image.png')
 
     groups = models.ManyToManyField(
         Group, verbose_name='groups', blank=True, related_name='user_groups')
