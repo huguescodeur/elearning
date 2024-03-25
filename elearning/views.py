@@ -1,5 +1,9 @@
 from django.db import connection
+from django.http import HttpResponse
 from django.shortcuts import render
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 def convert_microseconds_to_time(microseconds):
@@ -19,62 +23,67 @@ def convert_microseconds_to_time(microseconds):
 # ! Les Menu De Navigation
 # ? Accueil
 def index_view(request):
-    user_id = request.session.get('user_id', None)
-    user = None
-    current_view_name = request.resolver_match.url_name
-    context = {'title': 'Accueil', 'current_view_name': current_view_name}
+    try:
+        user_id = request.session.get('user_id', None)
+        user = None
+        current_view_name = request.resolver_match.url_name
+        context = {'title': 'Accueil', 'current_view_name': current_view_name}
 
-    with connection.cursor() as cursor:
-        cursor.execute("""
-                SELECT course, course_description, logo_url, SUM(duration), title, COUNT(*), slug
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                    SELECT course, course_description, logo_url, SUM(duration), title, COUNT(*), slug
+                    FROM videos_videos 
+                    WHERE category = 'formation'
+                    GROUP BY course, course_description, logo_url
+                    ORDER BY date DESC
+                    LIMIT 4
+            """)
+            all_formation = cursor.fetchall()
+
+        with connection.cursor() as cursor:
+            cursor.execute("""
+                SELECT title, description, logo_url, duration, niveau, course, slug
                 FROM videos_videos 
-                WHERE category = 'formation'
-                GROUP BY course, course_description, logo_url
+                WHERE category = 'tutoriel'
                 ORDER BY date DESC
                 LIMIT 4
-        """)
-        all_formation = cursor.fetchall()
+                
+            """)
+            all_tutorial = cursor.fetchall()
 
-    with connection.cursor() as cursor:
-        cursor.execute("""
-            SELECT title, description, logo_url, duration, niveau, course, slug
-            FROM videos_videos 
-            WHERE category = 'tutoriel'
-            ORDER BY date DESC
-            LIMIT 4
+        if user_id is not None:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * FROM account_user WHERE id = %s", [user_id])
+                user = cursor.fetchone()
+
+            context['user'] = user
+            context["image_url"] = context["user"][13].replace(
+                'static/', '')
             
-        """)
-        all_tutorial = cursor.fetchall()
+            print(context['user'])
+            print(context['image_url'])
 
-    if user_id is not None:
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT * FROM account_user WHERE id = %s", [user_id])
-            user = cursor.fetchone()
+        all_formation = [
+            (course, course_description, logo_url.replace('videos/static/', ''),
+            convert_microseconds_to_time(duration), title, count, slug)
+            for course, course_description, logo_url, duration, title, count, slug in
+            all_formation]
 
-        context['user'] = user
-        context["image_url"] = context["user"][13].replace(
-            'static/', '')
-        
-        print(context['user'])
-        print(context['image_url'])
+        all_tutorial = [
+            (title, description, logo_url.replace('videos/static/', ''), convert_microseconds_to_time(duration),
+            niveau.capitalize(), course, slug)
+            for title, description, logo_url, duration, niveau, course, slug in
+            all_tutorial]
 
-    all_formation = [
-        (course, course_description, logo_url.replace('videos/static/', ''),
-         convert_microseconds_to_time(duration), title, count, slug)
-        for course, course_description, logo_url, duration, title, count, slug in
-        all_formation]
+        context["all_formation"] = all_formation
+        context["all_tutorial"] = all_tutorial
 
-    all_tutorial = [
-        (title, description, logo_url.replace('videos/static/', ''), convert_microseconds_to_time(duration),
-         niveau.capitalize(), course, slug)
-        for title, description, logo_url, duration, niveau, course, slug in
-        all_tutorial]
-
-    context["all_formation"] = all_formation
-    context["all_tutorial"] = all_tutorial
-
-    return render(request, 'layouts/menu/index.html', context)
+        return render(request, 'layouts/menu/index.html', context)
+    except Exception as e:
+        print(e)
+        logger.exception(f"Une erreur s'est produite : {e}")
+        return HttpResponse(f"Une erreur s'est produite.{e}", status=500)
 
 
 # ? Blog

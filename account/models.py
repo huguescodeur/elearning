@@ -21,6 +21,8 @@ class User(AbstractUser):
         Group, verbose_name='groups', blank=True, related_name='user_groups')
     user_permissions = models.ManyToManyField(
         Permission, verbose_name='user permissions', blank=True, related_name='user_permissions')
+    
+        
 
 
 # ? Class Apprenant
