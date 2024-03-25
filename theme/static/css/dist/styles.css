@@ -5189,7 +5189,7 @@ li.active a:hover{
 } */
 
 .main-video {
-  background-image: url('../../videos/static/medias/images/background.png') no-repeat center center fixed;
+  background-image: url('../../../videos/static/medias/images/background.png') no-repeat center center fixed;
   background-size: cover;
 }
 
@@ -5493,7 +5493,6 @@ li.error {
 } */
 
 #contact{
-  background: orange;
   width: 100%;
 }
 
