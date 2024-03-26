@@ -50,9 +50,9 @@ urlpatterns = [
     path('password/', forgot_password_view, name='password_reset'),
     path('reset_password/',
          reset_password_view, name='reset_password'),
-
+    
 ]
 
-if settings.DEBUG:
+if settings.DEBUG is False:
     urlpatterns += static(settings.MEDIA_URL,
                           document_root=settings.MEDIA_ROOT)

@@ -77,7 +77,7 @@
                             <div
                                 class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
                                 <div class="flex items-center justify-between mb-4">
-                                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">Les
+                                    <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black pr-2">Les
                                         dernières
                                         formations
                                     </h5>
@@ -131,7 +131,8 @@
                                 <div
                                     class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
                                     <div class="flex items-center justify-between mb-4">
-                                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">Les
+                                        <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black pr-2">
+                                            Les
                                             derniers
                                             tutoriels
                                         </h5>
@@ -176,80 +177,6 @@
 
                         <!===== Les dernières info=====>
 
-                            <!-- <div class="div-rounded w-full md:w-1/2 lg mb-8 px-1">
-
-                                <div class=" rounded flex justify-center">
-                                    <div
-                                        class="rounded-item w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 ">
-                                        <div class="flex items-center justify-between mb-4">
-                                            <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-black">
-                                                Tous les articles
-                                            </h5>
-                                            <a href="#"
-                                                class="text-sm font-medium text-blue-500 hover:text-blue-600 white:text-blue-500">
-                                                Voir tous
-                                            </a>
-                                        </div>
-                                        <div class="flow-root ">
-                                            <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-300">
-                                                <li class="py-3 sm:py-4">
-                                                    <div class="flex items-center">
-
-                                                        <div class="flex-1 min-w-0 ms-4">
-                                                            <p
-                                                                class="text-sm font-medium text-gray-900 truncate white:text-black">
-                                                                <a href="#">Comment bien débuter<br>en programmation</a>
-                                                            </p>
-                                                            <p
-                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                19 Janvier 2024
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                </li>
-                                                <li class="py-3 sm:py-4">
-                                                    <div class="flex items-center ">
-
-                                                        <div class="flex-1 min-w-0 ms-4">
-                                                            <p
-                                                                class="text-sm font-medium text-gray-900 truncate  white:text-black">
-                                                                <a href="#">Lequel choisir entre Boostrap <br>et
-                                                                    Tailwind css</a>
-                                                            </p>
-                                                            <p
-                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                15 Novembre 2023
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                </li>
-                                                <li class="py-3 sm:py-4">
-                                                    <div class="flex items-center">
-
-                                                        <div class="flex-1 min-w-0 ms-4">
-                                                            <p
-                                                                class="text-sm font-medium text-gray-900 truncate white:text-black">
-                                                                <a href="#">Pourquoi j'ai choisir Flutter</a>
-                                                            </p>
-                                                            <p
-                                                                class="text-sm text-gray-500 truncate dark:text-gray-400">
-                                                                12 Mai 2023
-                                                            </p>
-                                                        </div>
-
-                                                    </div>
-                                                </li>
-
-
-
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div> -->
 
                 </div>
                 <!===== Les dernières formations=====>
@@ -328,12 +255,7 @@
                                             fill="blue"></path>
                                         <path d="M8 14a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" fill="blue"></path>
                                     </svg>
-                                    <!-- <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                        d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01">
-                                    </path>
-                                </svg> -->
+
                                 </div>
                                 <div class="flex-grow text-white">
                                     <h2 class=" text-xl title-font font-medium mb-3 ">Application Mobile</h2>
@@ -382,27 +304,7 @@
 
 
         <script>
-            const setup = () => {
-                return {
-                    isNavOpen: false,
-
-                    billPlan: 'monthly',
-
-                    plans: [
-
-                        {
-                            name: 'Devenir premium (1 mois)',
-                            discretion: 'Better for growing businesses that want more customers.',
-                            price: {
-                                monthly: 5,
-                                annually: 50,
-                            },
-                            features: ['Two projects', 'Your dashboard', 'Components included', 'Advanced charts'],
-                        },
-
-                    ],
-                }
-            }
+            const setup = () => ({ isNavOpen: !1, billPlan: "monthly", plans: [{ name: "Devenir premium (1 mois)", discretion: "Better for growing businesses that want more customers.", price: { monthly: 5, annually: 50 }, features: ["Two projects", "Your dashboard", "Components included", "Advanced charts"] }] });
         </script>
 
 

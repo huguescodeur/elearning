@@ -2,6 +2,7 @@ import os
 import base64
 from functools import wraps
 import re
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password, check_password
 from django.core.validators import validate_email
@@ -22,6 +23,10 @@ import uuid
 import jwt
 import datetime
 import secrets
+from django.http import HttpResponse
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 # Logique du décirateur
@@ -141,28 +146,35 @@ def inscription_view(request):
 # ? Settings
 @custom_login_required
 def settings_view(request):
-    user_id = request.session.get('user_id', None)
+    try:
+        user_id = request.session.get('user_id', None)
 
-    current_view_name = request.resolver_match.url_name
-    context = {'title': 'Paramètres', 'current_view_name': current_view_name}
+        current_view_name = request.resolver_match.url_name
+        context = {'title': 'Paramètres', 'current_view_name': current_view_name}
 
-    if user_id is not None:
-        with connection.cursor() as cursor:
-            cursor.execute(
-                "SELECT * FROM account_user WHERE id = %s", [user_id])
-            user = cursor.fetchone()
+        if user_id is not None:
+            with connection.cursor() as cursor:
+                cursor.execute(
+                    "SELECT * FROM account_user WHERE id = %s", [user_id])
+                user = cursor.fetchone()
 
-        print(user)
+            print(user)
 
-        context['user'] = user
-        context["image_url"] = context["user"][13].replace(
-            'static/', '')
+            context['user'] = user
+            context["image_url"] = context["user"][13].replace(
+                'static/', '')
 
-        print(context['user'])
-        print(context["image_url"])
-    # print(context["user"][-1])
 
-    return render(request, 'settings/settings.html', context)
+            print(context['user'])
+            print(context["image_url"])
+        # print(context["user"][-1])
+        
+
+        return render(request, 'settings/settings.html', context)
+    except Exception as e:
+        print(e)
+        logger.exception(f"Une erreur s'est produite : {e}")
+        return HttpResponse(f"Une erreur s'est produite.{e}", status=500)
 
 
 # ? Update User Info Compte
@@ -196,6 +208,8 @@ def update_user_info_view(request):
                 )
 
                 print("New Name", name)
+                return JsonResponse({'redirect_url': reverse('settings')})
+            
             if email:
                 try:
                     validate_email(email)
@@ -203,6 +217,7 @@ def update_user_info_view(request):
                         email, user_id])
                 except ValidationError:
                     return JsonResponse({'error_message': 'Email non valide.'})
+                return JsonResponse({'redirect_url': reverse('settings')})
 
             if old_password and new_password and confirm_password:
                 current_password = user[1]
@@ -238,7 +253,9 @@ def update_image_view(request):
     if request.method == 'POST':
         image_data = request.FILES['new-image']
         file_name = "{}_{}".format(user[12], image_data.name.replace(' ', '_'))
+        
         file_path = "static/user_image/{}".format(file_name)
+
 
         with open(file_path, 'wb+') as destination:
             for chunk in image_data.chunks():
@@ -403,10 +420,11 @@ def forgot_password_view(request):
             # Générer un jeton unique
             # token = uuid.uuid4().hex
             secret = secrets.token_hex(32)
-            print(secret)
+            request.session['jwt_secret'] = secret
+            print("Encode Secret: {secret}")
             token = jwt.encode({
                 'email': email,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=10)
+                'exp': datetime.datetime.now() + datetime.timedelta(minutes=10)
             }, secret, algorithm='HS256')
 
             print(token)
@@ -438,7 +456,7 @@ def forgot_password_view(request):
 # ? Password Reset
 def reset_password_view(request):
     token = request.GET.get('token')
-    print(token)
+    print(f"Token1: {token}")
 
     current_view_name = request.resolver_match.url_name
     context = {'title': 'Nouveau password',
@@ -450,6 +468,8 @@ def reset_password_view(request):
         new_password = request.POST.get('new-password')
         confirm_password = request.POST.get('confirm-password')
         token = request.POST.get('token')
+        
+        print(f"Token2: {token}")
 
         if new_password != confirm_password:
             print("Different")
@@ -458,7 +478,9 @@ def reset_password_view(request):
             return HttpResponseRedirect(reverse('reset_password') + '?token=' + token)
 
         try:
-            payload = jwt.decode(token, 'secret', algorithms=['HS256'])
+            secret = request.session.get('jwt_secret')
+            print(f"Decode Secret: {secret}")
+            payload = jwt.decode(token, secret, algorithms=['HS256'])
             email = payload['email']
 
             print(f"Mon email: {email}")
@@ -473,7 +495,9 @@ def reset_password_view(request):
 
             return redirect('connexion')
 
-        except (jwt.ExpiredSignatureError, jwt.DecodeError):
+        except Exception as e:
+            print(f"Erreur: {e}")
+            
             messages.error(
                 request, "Le lien de réinitialisation du mot de passe est invalide ou a expiré.")
 

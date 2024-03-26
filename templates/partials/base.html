@@ -11,6 +11,7 @@
     <link href='https://cdn.jsdelivr.net/npm/boxicons@2.0.5/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://cdn.plyr.io/3.6.8/plyr.css" />
+    <link rel="shortcut icon" href="{% static 'medias/images/hugues-codeur.png' %}" type="image/x-icon">
 
 
 
@@ -60,17 +61,7 @@
 
 <script>
     // Scroll Navbar
-    let lastScroll = 0;
-
-    window.addEventListener("scroll", () => {
-        if (window.scrollY < lastScroll) {
-            navbar.style.top = 0;
-        } else {
-            navbar.style.top = "-90px";
-        }
-
-        lastScroll = window.scrollY;
-    });
+    let lastScroll = 0; window.addEventListener("scroll", (() => { window.scrollY < lastScroll ? navbar.style.top = 0 : navbar.style.top = "-90px", lastScroll = window.scrollY }));
 </script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
@@ -79,7 +70,6 @@
 <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js" defer></script>
 
 
-<!-- <script src="https://cdn.tailwindcss.com"></script> -->
+
 
 </html>
-<!-- <link rel="stylesheet" href="{% static 'css/style.css' %} "> -->
